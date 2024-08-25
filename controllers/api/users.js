@@ -6,7 +6,7 @@ const { User, Thought } = require('../../models');
 router.get('/', async (req, res) => {
   try {
     const Users = await User.find();
-    return res.json(Users);
+    return res.status(200).json(Users);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'No User with that ID' });
     }
-    return res.json(user);
+    return res.status(200).json(user);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     await User.create(req.body);
-    return res.json('User created!');
+    return res.status(200).json('User created!');
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -41,11 +41,14 @@ router.post('/', async (req, res) => {
 // Update a user
 router.put('/:id', async (req, res) => {
   try {
-    const user = await User.findOneAndUpdate(req.params.id, req.body);
+    const user = await User.findOneAndUpdate(
+      {_id: req.params.id}, 
+      req.body
+    );
     if (!user) {
       return res.status(404).json({ message: 'No User with that ID' });
     }
-    return res.json('User updated!');
+    return res.status(200).json('User updated!');
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -61,7 +64,7 @@ router.delete('/:id', async (req, res) => {
     }
     await Thought.deleteMany({ username: user.username });
     await User.findOneAndDelete({ _id: req.params.id });
-    return res.json({ message: 'User deleted!' });
+    return res.status(200).json({ message: 'User deleted!' });
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -79,6 +82,7 @@ router.post('/:userId/friends/:friendId', async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'No User with that ID' });
     }
+    return res.status(200).json({ message: 'Friend added!' });
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -96,7 +100,7 @@ router.delete('/:userId/friends/:friendId', async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'No User with that ID' });
     }
-    return res.json({ message: 'Friend deleted!' });
+    return res.status(200).json({ message: 'Friend deleted!' });
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);

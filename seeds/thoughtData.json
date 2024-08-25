@@ -1,0 +1,52 @@
+[
+  {
+    "thoughtText": "Non relational databases are also called NoSQL databases.",
+    "username": "user1",
+    "reactions": [
+      {
+        "reactionBody": "👍",
+        "username": "user2"
+      }
+    ]
+  },
+  {
+    "thoughtText": "MongoDB is the best database.",
+    "username": "user2",
+    "reactions": [
+      {
+        "reactionBody": "❤️",
+        "username": "user1"
+      }
+    ]
+  },
+  {
+    "thoughtText": "JSON is widely used for APIs.",
+    "username": "user3",
+    "reactions": [
+      {
+        "reactionBody": "👍",
+        "username": "user2"
+      }
+    ]
+  },
+  {
+    "thoughtText": "Learning JSON is fun!",
+    "username": "user4",
+    "reactions": [
+      {
+        "reactionBody": "👍",
+        "username": "user3"
+      }
+    ]
+  },
+  {
+    "thoughtText": "JSON stands for JavaScript Object Notation.",
+    "username": "user5",
+    "reactions": [
+      {
+        "reactionBody": "👍",
+        "username": "user4"
+      }
+    ]
+  }
+]

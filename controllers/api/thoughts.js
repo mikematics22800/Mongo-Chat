@@ -6,7 +6,7 @@ const crypto = require('crypto');
 router.get('/', async (req, res) => {
   try {
     const thoughts = await Thought.find();
-    return res.json(thoughts);
+    return res.status(200).json(thoughts);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
     if (!thought) {
       return res.status(404).json({ message: 'No thought with that ID' });
     }
-    return res.json(thought);
+    return res.status(200).json(thought);
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
       { $addToSet: { thoughts: thought._id } },
       { new: true }
     )
-    return res.json('Thought created!');
+    return res.status(200).json('Thought created!');
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -53,7 +53,7 @@ router.put('/:id', async (req, res) => {
     if (!thought) {
       return res.status(404).json({ message: 'No thought with that ID' });
     }
-    return res.json('Thought updated!');
+    return res.status(200).json('Thought updated!');
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -71,7 +71,7 @@ router.delete('/:id', async (req, res) => {
       { username: thought.username },
       { $pull: { thoughts: thought._id } }
     )
-    return res.json('Thought deleted!');
+    return res.status(200).json('Thought deleted!');
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -97,7 +97,7 @@ router.post('/:thoughtId/reactions', async (req, res) => {
     if (!thought) {
       return res.status(404).json({ message: 'No thought with that ID' });
     }
-    return res.json('Reaction added!');
+    return res.status(200).json('Reaction added!');
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
@@ -114,11 +114,11 @@ router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
     if (!thought) {
       return res.status(404).json({ message: 'No thought with that ID' });
     }
-    return res.json('Reaction deleted!');
+    return res.status(200).json('Reaction deleted!');
   } catch (err) {
     console.log(err);
     return res.status(500).json(err);
   }
 })
 
-
+module.exports = router;
