@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Thought, User } = require('../../models');
+const crypto = require('crypto');
 
 // get all thoughts
 router.get('/', async (req, res) => {
@@ -77,12 +78,20 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+const getId = () => {
+  return crypto.randomBytes(12).toString('hex');
+}
+
 // create a new reaction
 router.post('/:thoughtId/reactions', async (req, res) => {
   try {
     const thought = await Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $addToSet: { reactions: req.body } },
+      { $addToSet: { reactions: {
+        reactionId: getId(),
+        reactionBody: req.body.reactionBody,
+        username: req.body.username
+      } } },
       { new: true }
     );
     if (!thought) {
