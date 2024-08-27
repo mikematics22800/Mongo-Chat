@@ -1,5 +1,5 @@
 {
-  "name": "mongo-chat",
+  "name": "mongo-chat-backend",
   "version": "1.0.1",
   "description": "Mongoose back-end project - Develop",
   "main": "index.js",

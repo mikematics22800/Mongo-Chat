@@ -78,20 +78,17 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
-const getId = () => {
-  return crypto.randomBytes(12).toString('hex');
-}
-
 // create a new reaction
-router.post('/:thoughtId/reactions', async (req, res) => {
+router.post('/:id/reactions', async (req, res) => {
   try {
     const thought = await Thought.findOneAndUpdate(
-      { _id: req.params.thoughtId },
-      { $addToSet: { reactions: {
-        reactionId: getId(),
-        reactionBody: req.body.reactionBody,
-        username: req.body.username
-      } } },
+      { _id: req.params.id },
+      { $addToSet: { 
+          reactions: {
+            reactionBody: req.body.reactionBody,
+            username: req.body.username
+          } 
+      }},
       { new: true }
     );
     if (!thought) {
@@ -109,7 +106,7 @@ router.delete('/:thoughtId/reactions/:reactionId', async (req, res) => {
   try {
     const thought = await Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionId: req.params.reactionId } } }
+      { $pull: { reactions: { _id: req.params.reactionId } } }
     );
     if (!thought) {
       return res.status(404).json({ message: 'No thought with that ID' });
